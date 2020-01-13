@@ -13,4 +13,13 @@
     <li>
         <p>Although the cost of performance in while iteration small, we got another way. Modificator volatile, do not ensure mutual exclusion but guarantees each thread will see latest written value.</p>
     </li>
+    <li>
+        <p>It will not works with ++ operator, because this operator is not atomic. Only single operation on available primitives are atomic. We need synchronized modifier will ensure parallel (read & write) calls will not overlap</p>
+    </li>
+    <li>
+        <p>eventually, we can remove volatile modifier from int field __ moreover change int to long to get more available digits</p>
+    </li>
+    <li>
+        <p>Even better is to use AtomicLong class from concurrent.atomic</p>
+    </li>
 </ol>
