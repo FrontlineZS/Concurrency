@@ -1,18 +1,27 @@
 package com.frontline.concurrency;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Creating clear, correct and well documented concurrent programs
- * by FrontlineZS
  */
-@SpringBootApplication
 public class ConcurrencyApplication {
+    private static boolean stopRequested;
 
-    public static void main(String[] args) {
-        SpringApplication.run(ConcurrencyApplication.class, args);
+    public static void main(String[] args) throws InterruptedException {
+        Thread backgroundThread = new Thread(() -> {
+            int i = 0;
 
+            while (!stopRequested) {                    // Ad. 2
+                i++;
+            }
+
+            System.out.println(i);
+        });
+
+        backgroundThread.start();
+        TimeUnit.SECONDS.sleep(1);
+        stopRequested = true;                           // Ad. 1
     }
 
 }
