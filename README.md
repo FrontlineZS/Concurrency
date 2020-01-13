@@ -10,4 +10,7 @@
         <p>In fact, synchronization has no effect if both read and write operations are not performed</p>
         <p>Synchronization of these two methods is used only to ensure communication, not mutual exclusion __ read and write operations are atomic</p>
     </li>
+    <li>
+        <p>Although the cost of performance in while iteration small, we got another way. Modificator volatile, do not ensure mutual exclusion but guarantees each thread will see latest written value.</p>
+    </li>
 </ol>
