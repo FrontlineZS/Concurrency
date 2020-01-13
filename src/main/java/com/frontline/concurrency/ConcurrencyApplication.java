@@ -8,11 +8,19 @@ import java.util.concurrent.TimeUnit;
 public class ConcurrencyApplication {
     private static boolean stopRequested;
 
+    synchronized private static void setStopRequested() {
+        ConcurrencyApplication.stopRequested = true;
+    }                                                       // Ad. 3
+
+    synchronized private static boolean isStopRequested() {
+        return ConcurrencyApplication.stopRequested;
+    }
+
     public static void main(String[] args) throws InterruptedException {
         Thread backgroundThread = new Thread(() -> {
             int i = 0;
 
-            while (!stopRequested) {                    // Ad. 2
+            while (!isStopRequested()) {                    // Ad. 2
                 i++;
             }
 
@@ -21,7 +29,7 @@ public class ConcurrencyApplication {
 
         backgroundThread.start();
         TimeUnit.SECONDS.sleep(1);
-        stopRequested = true;                           // Ad. 1
+        setStopRequested();                                 // Ad. 1
     }
 
 }
