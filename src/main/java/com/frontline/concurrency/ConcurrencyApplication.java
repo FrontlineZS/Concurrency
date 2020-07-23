@@ -7,17 +7,27 @@ import java.util.Scanner;
  * by FrontlineZS
  */
 public class ConcurrencyApplication {
-    private static final int AMOUNT_OF_ITERATION = 10;
+    private static final String SEPARATOR = " ";
 
     public static void main(String[] args) {
         try (final Scanner scanner = new Scanner(System.in)) {
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            final int queries = scanner.nextInt();
 
-            final int integerToBeMultiple = scanner.nextInt();
+            for (int i = 0; i < queries; i++) {
+                final int a = scanner.nextInt();
+                final int b = scanner.nextInt();
+                final int n = scanner.nextInt();
 
-            for (int i = 1; i <= AMOUNT_OF_ITERATION; i++) {
-                System.out.printf("%d x %d = %d\n", integerToBeMultiple, i, integerToBeMultiple * i);
+                for (int j = 0; j < n; j++) {
+                    System.out.print(generateNextElementOfSequence(a, b, j) + SEPARATOR + (j + 1 == n ? "\n" : ""));
+                }
             }
         }
+    }
+
+    private static int generateNextElementOfSequence(int a, int b, int n) {
+        if (n == 0) return a + (int) Math.pow(2, n) * b;
+
+        return generateNextElementOfSequence(a, b, n - 1) + (int) Math.pow(2, n) * b;
     }
 }
